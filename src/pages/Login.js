@@ -4,7 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { error, login } = useAuth();
+  const { error, login, signInWithGoogle } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,6 +34,8 @@ export default function Login() {
           />
         </label>
         <button>log in</button>
+        <button onClick={signInWithGoogle}>Sign in with Google</button>
+
         {error && <p>{error}</p>}
       </form>
     </div>

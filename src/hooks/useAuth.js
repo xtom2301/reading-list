@@ -4,6 +4,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from 'firebase/auth';
 import { useAuthContext } from './useAuthContext';
 
@@ -43,5 +45,16 @@ export const useAuth = () => {
       });
   };
 
-  return { error, login, signup, logout };
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, new GoogleAuthProvider())
+      .then((res) => {
+        console.log(res);
+        dispatch({ type: 'LOGOUT' });
+      })
+      .catch(({ message }) => {
+        console.log(message);
+      });
+  };
+
+  return { error, login, signup, logout, signInWithGoogle };
 };
