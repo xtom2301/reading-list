@@ -42,7 +42,8 @@ nav a {
   margin: 10px 0;
   cursor: pointer;
 }
-label, label span {
+label,
+label span {
   display: block;
   margin: 6px 0;
 }
