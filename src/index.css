@@ -48,12 +48,14 @@ label span {
   margin: 6px 0;
 }
 input {
-  padding: 6px;
+  padding: 10px;
   margin-bottom: 12px;
+  width: 80%;
 }
 button {
   background: #772eff;
   color: #fff;
   border: 0;
   padding: 6px 8px;
+  width: 25%;
 }

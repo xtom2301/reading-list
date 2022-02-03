@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useSignup } from '../hooks/useSignup';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { error, signup } = useSignup();
+  const { error, signup } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
