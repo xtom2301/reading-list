@@ -13,47 +13,47 @@ export const useAuth = () => {
   const [error, setError] = useState(null);
   const { dispatch } = useAuthContext();
 
-  const login = (email, password) => {
+  const login = async (email, password) => {
     setError(null);
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        dispatch({ type: 'LOGIN', payload: user });
-      })
-      .catch(({ message }) => {
-        setError({ message });
-      });
+    try {
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      dispatch({ type: 'LOGIN', payload: user });
+    } catch ({ message }) {
+      setError({ message });
+    }
   };
 
-  const signup = (email, password) => {
+  const signup = async (email, password) => {
     setError(null);
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        dispatch({ type: 'LOGIN', payload: user });
-      })
-      .catch(({ message }) => {
-        setError({ message });
-      });
+    try {
+      const { user } = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      dispatch({ type: 'LOGIN', payload: user });
+    } catch ({ message }) {
+      setError({ message });
+    }
   };
 
-  const logout = () => {
-    signOut(auth)
-      .then(() => {
-        dispatch({ type: 'LOGOUT' });
-      })
-      .catch(({ message }) => {
-        console.log(message);
-      });
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      dispatch({ type: 'LOGOUT' });
+    } catch ({ message }) {
+      setError({ message });
+    }
   };
 
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .then((res) => {
-        console.log(res);
-        dispatch({ type: 'LOGOUT' });
-      })
-      .catch(({ message }) => {
-        console.log(message);
-      });
+  const signInWithGoogle = async () => {
+    setError(null);
+    try {
+      const { user } = await signInWithPopup(auth, new GoogleAuthProvider());
+      dispatch({ type: 'LOGIN', payload: user });
+    } catch ({ message }) {
+      setError(message);
+    }
   };
 
   return { error, login, signup, logout, signInWithGoogle };
