@@ -55,6 +55,5 @@ export const useAuth = () => {
       setError(message);
     }
   };
-
   return { error, login, signup, logout, signInWithGoogle };
 };
